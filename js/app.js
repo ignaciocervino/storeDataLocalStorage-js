@@ -7,7 +7,13 @@ let tweets = [];
 eventListeners();
 
 function eventListeners(){
+    //Cuando el usuario agrega un nuevo tweet
     formulario.addEventListener('submit',agregarTweet);
+    //Cuando el documento esta listo
+    document.addEventListener('DOMContentLoaded',()=>{
+        tweets = JSON.parse(localStorage.getItem('tweets')) || [];//Si le marca null, que le devuelva un arreglo vacio
+        console.log(tweets);
+    });
 }
 
 /** FUNCTIONS */
@@ -24,7 +30,7 @@ function agregarTweet(e){
     	tweet // This is the same as do tweet: tweet
     }
     //Añado al arreglo de tweeets
-    tweets = [...tweets,tweet];
+    tweets = [...tweets,tweetObj];
 
     //Crear html
     crearHTML();
@@ -52,11 +58,18 @@ function crearHTML(){
 			//Crear el HTML
 			const li = document.createElement('li');
 			//Añadir texto
-			li.innerText = tweet;
+			li.innerText = tweet.tweet;
 			//Agregarlo en el html
 			listaTweets.appendChild(li);
 		});
 	}
+
+    sincronizarStorage();
+}
+
+//Agrega los tweet actuales a LocalStorage
+function sincronizarStorage(){
+    localStorage.setItem('tweets',JSON.stringify(tweets));
 }
 
 function limpiarHTML(){
