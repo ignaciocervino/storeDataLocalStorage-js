@@ -5,14 +5,14 @@ let tweets = [];
 
 /** EVENT LISTENERS */
 eventListeners();
-
 function eventListeners(){
     //Cuando el usuario agrega un nuevo tweet
     formulario.addEventListener('submit',agregarTweet);
     //Cuando el documento esta listo
-    document.addEventListener('DOMContentLoaded',()=>{
+    document.addEventListener('DOMContentLoaded',() => {
         tweets = JSON.parse(localStorage.getItem('tweets')) || [];//Si le marca null, que le devuelva un arreglo vacio
-        console.log(tweets);
+        //console.log(tweets);
+        crearHTML();
     });
 }
 
